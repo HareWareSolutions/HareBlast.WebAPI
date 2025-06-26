@@ -18,7 +18,7 @@ class Empresa(Base):
     telefone = Column(String, nullable=False)
     email = Column(String, nullable=False)
     data_cadastro = Column(Date, nullable=True)
-    status = Column(Boolean, nullable=False, default=True)  # Se precisar, use server_default='true'
+    status = Column(Boolean, nullable=False, default=True)
 
 
 async def criar_empresa(

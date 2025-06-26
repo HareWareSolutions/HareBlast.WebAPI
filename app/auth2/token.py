@@ -29,7 +29,6 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
-        print(username, f'\n\n\n\n\n\n\n\n')
         return {"username": username}
     except JWTError:
         raise credentials_exception

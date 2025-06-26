@@ -16,6 +16,7 @@ from app.utils.transformadores_json import produto_to_dict
 import logging
 
 
+
 class ProdutoCreate(BaseModel):
     nome: str
     descricao: str
