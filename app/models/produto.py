@@ -37,9 +37,14 @@ class Produto(Base):
     preco_venda = Column(Numeric(precision=10, scale=2), nullable=False, default=Decimal('0.00'))
     qtd_estoque = Column(Integer, default=0, nullable=False)
     link = Column(String, nullable=True)
+    url_imagem1 = Column(String, nullable=True)
+    url_imagem2 = Column(String, nullable=True)
+    url_imagem3 = Column(String, nullable=True)
+    path_imagem1 = Column(String, nullable=True)
+    path_imagem2 = Column(String, nullable=True)
+    path_imagem3 = Column(String, nullable=True)
 
     campanhas_associadas = relationship("CampanhaProduto", back_populates="produto")
-
 
 
 async def criar_produto(
@@ -50,9 +55,14 @@ async def criar_produto(
     unidade_medida,
     preco_venda: Decimal,
     qtd_estoque: int,
-    link: str
+    link: str,
+    url_imagem1: str,
+    url_imagem2: str,
+    url_imagem3: str,
+    path_imagem1: str,
+    path_imagem2: str,
+    path_imagem3: str
 ):
-    # Converter para Enum se for string
     if isinstance(unidade_medida, str):
         unidade_medida = UnidadeMedida(unidade_medida)
 
@@ -60,10 +70,16 @@ async def criar_produto(
         nome=nome,
         descricao=descricao,
         codigo_produto=codigo_produto,
-        unidade_medida=unidade_medida.value,  # <-- aqui, usa .value para salvar string
+        unidade_medida=unidade_medida.value,
         preco_venda=preco_venda,
         qtd_estoque=qtd_estoque,
-        link=link
+        link=link,
+        url_imagem1=url_imagem1,
+        url_imagem2=url_imagem2,
+        url_imagem3=url_imagem3,
+        path_imagem1=path_imagem1,
+        path_imagem2=path_imagem2,
+        path_imagem3=path_imagem3
     )
     db.add(novo_produto)
     await db.commit()
@@ -80,7 +96,13 @@ async def atualizar_produto(
     unidade_medida=None,
     preco_venda: Decimal = None,
     qtd_estoque: int = None,
-    link: str = None
+    link: str = None,
+    url_imagem1: str = None,
+    url_imagem2: str = None,
+    url_imagem3: str = None,
+    path_imagem1: str = None,
+    path_imagem2: str = None,
+    path_imagem3: str = None
 ):
     result = await db.execute(select(Produto).filter(Produto.id == produto_id))
     produto = result.scalar_one_or_none()
@@ -95,13 +117,25 @@ async def atualizar_produto(
         if unidade_medida is not None:
             if isinstance(unidade_medida, str):
                 unidade_medida = UnidadeMedida(unidade_medida)
-            produto.unidade_medida = unidade_medida.value  # <-- sempre .value aqui
+            produto.unidade_medida = unidade_medida.value
         if preco_venda is not None:
             produto.preco_venda = preco_venda
         if qtd_estoque is not None:
             produto.qtd_estoque = qtd_estoque
         if link is not None:
             produto.link = link
+        if url_imagem1 is not None:
+            produto.url_imagem1 = url_imagem1
+        if url_imagem2 is not None:
+            produto.url_imagem2 = url_imagem2
+        if url_imagem3 is not None:
+            produto.url_imagem3 = url_imagem3
+        if path_imagem1 is not None:
+            produto.path_imagem1 = path_imagem1
+        if path_imagem2 is not None:
+            produto.path_imagem2 = path_imagem2
+        if path_imagem3 is not None:
+            produto.path_imagem = path_imagem3
 
         await db.commit()
         await db.refresh(produto)

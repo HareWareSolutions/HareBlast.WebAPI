@@ -4,7 +4,6 @@ from sqlalchemy.future import select
 from decimal import Decimal
 from sqlalchemy.orm import relationship
 from app.db.db import Base
-from app.routes import campanha_produto
 
 
 class CampanhaProduto(Base):

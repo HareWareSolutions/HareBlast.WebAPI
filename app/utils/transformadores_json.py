@@ -49,7 +49,13 @@ def produto_to_dict(produto):
         "unidade_medida": produto.unidade_medida,
         "preco_venda": produto.preco_venda,
         "qtd_estoque": produto.qtd_estoque,
-        "link": produto.link
+        "link": produto.link,
+        "url_imagem1": produto.url_imagem1,
+        "url_imagem2": produto.url_imagem2,
+        "url_imagem3": produto.url_imagem3,
+        "path_imagem1": produto.path_imagem1,
+        "path_imagem2": produto.path_imagem2,
+        "path_imagem3": produto.path_imagem3
     }
 
 
